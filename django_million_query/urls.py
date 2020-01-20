@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import CreateDataApi
+from app.views import CreateDataApi,GetDataApi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-date-api/', CreateDataApi.as_view()),
+    path('get-date-api/', GetDataApi.as_view()),
 ]
