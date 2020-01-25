@@ -1,5 +1,15 @@
 from django.db import models
 
+"""
+用户信息 -> 一对一 -> 学生表
+用户信息 -> 一对一 -> 教师表
+
+学生表 -> 多对多 -> 教师表(m)
+
+教师表 -> 一对多 -> 课程表(fk)
+
+学生表 -> 多对多 -> 课程表(m)
+"""
 
 
 class UserProfile(models.Model):
