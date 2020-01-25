@@ -130,3 +130,40 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console':{
+#             'level':'DEBUG',
+#             'class':'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level':'DEBUG',
+#         },
+#     }
+# }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': { # 日志类型
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './debug.log', # 日志文件
+        },
+    },
+    'loggers': {
+        'django.db.backends': { # 数据库操作日志
+            'handlers': ['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}

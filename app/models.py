@@ -11,7 +11,6 @@ from django.db import models
 学生表 -> 多对多 -> 课程表(m)
 """
 
-
 class UserProfile(models.Model):
     """用户信息"""
     name = models.CharField(verbose_name="姓名",max_length=128)
@@ -33,6 +32,4 @@ class Course(models.Model):
     course_name = models.CharField(verbose_name="课程名",max_length=128)
     stu = models.ManyToManyField(to=Students)
     tea = models.ForeignKey(to=Teachers,on_delete=models.DO_NOTHING)
-
-
 
