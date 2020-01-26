@@ -134,6 +134,68 @@ class GetORMUserDataApi(APIView):
         }, status=status.HTTP_200_OK)
 
 
+class GetORMStudentsDataApi(APIView):
+
+    authentication_classes = ()  # 验证
+    permission_classes = ()  # 权限
+
+    def get(self,request):
+        """
+        小数据查询,验证sql语句
+        :param request:
+        :return:
+        """
+        print("没有使用优化ORM-起始时间:{}".format(datetime.datetime.now()))  #
+        obj_list = models.Students.objects.filter(id__lte=5)
+        print("数据量:{}".format(len(obj_list)))  #
+        for foo in obj_list:
+            temp = foo.user.name
+        print("没有使用优化ORM-结束时间:{}".format(datetime.datetime.now()))  #
+        print("\n")
+        print("------------------------")
+        print("\n")
+        print("优化ORM-起始时间:{}".format(datetime.datetime.now()))  #
+        obj_list = models.Students.objects.select_related().filter(id__lte=5)
+        print("数据量:{}".format(len(obj_list)))  #
+        for foo in obj_list:
+            temp = foo.user.name
+        print("优化ORM-结束时间:{}".format(datetime.datetime.now()))  #
+
+        return Response({
+            "success": False,
+            "msg": "小数据查询",
+            "results": ""
+        }, status=status.HTTP_200_OK)
+
+    def post(self,request):
+        """
+        大数据查询-验证耗时
+        :param request:
+        :return:
+        """
+        # print("没有使用优化ORM-起始时间:{}".format(datetime.datetime.now()))  #
+        # obj_list = models.Students.objects.all()
+        # print("数据量:{}".format(len(obj_list)))  #
+        # for foo in obj_list:
+        #     temp = foo.user
+        # print("没有使用优化ORM-结束时间:{}".format(datetime.datetime.now()))  #
+        print("\n")
+        print("------------------------")
+        print("\n")
+        print("优化ORM-起始时间:{}".format(datetime.datetime.now()))  #
+        obj_list = models.Students.objects.select_related().all()
+        print("数据量:{}".format(len(obj_list)))  #
+        for foo in obj_list:
+            print(foo.user)
+        print("优化ORM-结束时间:{}".format(datetime.datetime.now()))  #
+
+        return Response({
+            "success": False,
+            "msg": "大数据查询",
+            "results": ""
+        }, status=status.HTTP_200_OK)
+
+
 class GetORMTeachersDataApi(APIView):
 
     authentication_classes = ()  # 验证
